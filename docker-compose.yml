@@ -1,0 +1,18 @@
+version: "3.8"
+services:
+  prometheus-01:
+    image: prom/prometheus:v2.39.1
+    ports:
+      - 19090:9090
+    volumes:
+      - ./prometheus-01.yml:/etc/prometheus/prometheus.yml
+
+  prometheus-02:
+    image: prom/prometheus:v2.39.1
+    command:
+      - --web.enable-remote-write-receiver
+      - --config.file=/etc/prometheus/prometheus.yml
+    ports:
+      - 29090:9090
+    volumes:
+      - ./prometheus-02.yml:/etc/prometheus/prometheus.yml
